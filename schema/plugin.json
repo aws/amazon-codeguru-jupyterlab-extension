@@ -1,0 +1,36 @@
+{
+  "title": "Amazon CodeGuru",
+  "description": "Amazon CodeGuru scan settings",
+  "properties": {
+    "disableAutoScan": {
+      "type": "boolean",
+      "title": "Disable auto scans",
+      "description": "If enabled, CodeGuru will automatically scan notebook and Python files."
+    },
+    "scanFrequency": {
+      "type": "integer",
+      "title": "Specify CodeGuru scan frequency",
+      "description": "Specify desired scan frequency in seconds. The default frequency is every 120 seconds.",
+      "default": 120
+    },
+    "region": {
+      "enum": [
+        "eu-north-1",
+        "ap-southeast-2",
+        "us-east-1",
+        "us-east-2",
+        "us-west-2",
+        "ap-northeast-1",
+        "ap-southeast-1",
+        "eu-central-1",
+        "eu-west-1",
+        "eu-west-2"
+      ],
+      "title": "Region",
+      "description": "Choose a region to override default region and run CodeGuru scans in the chosen region.",
+      "default": "us-east-1"
+    }
+  },
+  "additionalProperties": false,
+  "type": "object"
+}
