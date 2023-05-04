@@ -1,0 +1,36 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+.code-scan-btn {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.statusbar-spinner,
+.statusbar-icon {
+  margin-right: 5px;
+}
+
+.cg-popover {
+  z-index: 10000;
+  padding: 10px 0px;
+  background: var(--jp-layout-color0);
+  color: var(--jp-ui-font-color1);
+  border: var(--jp-border-width) solid var(--jp-border-color1);
+  font-size: var(--jp-ui-font-size1);
+  box-shadow: var(--jp-elevation-z6);
+}
+
+.cg-popover-content {
+  padding: 5px 10px;
+}
+
+.cg-button {
+  margin-top: 5px;
+}
+
+.cg-code-editor {
+  padding: 10px;
+}

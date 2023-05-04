@@ -1,6 +1,4 @@
-## My Project
-
-TODO: Fill this README out!
+## Amazon CodeGuru JupyterLab Extension
 
 Be sure to:
 
@@ -14,4 +12,3 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 ## License
 
 This project is licensed under the Apache-2.0 License.
-

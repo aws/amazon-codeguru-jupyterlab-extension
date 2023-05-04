@@ -1,0 +1,51 @@
+{
+  "createdAt": 1.683075126764e9,
+  "description": "Improper error handling can enable attacks and lead to unwanted behavior.  Parts of the system may receive unintended input, which may result in altered control flow,  arbitrary control of a resource, or arbitrary code execution.",
+  "detectorId": "python/improper-error-handling@v1.0",
+  "detectorName": "Improper error handling",
+  "detectorTags": ["availability", "maintainability", "cwe-703", "python"],
+  "generatorId": "AmazonCodeGuruReviewer2",
+  "id": "security-bandit-1.6-c2d1a43a0fc771c74c21e8c6b356f3ff8a2964306877",
+  "remediation": {
+    "recommendation": {
+      "text": "Try, Except, Pass detected. https://bandit.readthedocs.io/en/latest/plugins/b110_try_except_pass.html",
+      "url": "https://docs.aws.amazon.com/codeguru/detector-library/python/improper-error-handling"
+    }
+  },
+  "ruleId": "Rule-269212",
+  "severity": "Low",
+  "status": "Open",
+  "title": "CWE-703 - Improper error handling",
+  "type": "Software and Configuration Checks",
+  "updatedAt": 1.683075126764e9,
+  "vulnerability": {
+    "filePath": {
+      "codeSnippet": [
+        { "content": "    try:", "number": 42 },
+        { "content": "        if cookie:", "number": 43 },
+        {
+          "content": "            decoded = base64.b64decode(cookie.encode())",
+          "number": 44
+        },
+        { "content": "            if decoded:", "number": 45 },
+        {
+          "content": "                session = json.loads(base64.b64decode(cookie))",
+          "number": 46
+        },
+        { "content": "    except Exception:", "number": 47 },
+        { "content": "        pass", "number": 48 },
+        { "content": "", "number": 49 },
+        { "content": "    return session", "number": 50 },
+        { "content": "", "number": 51 },
+        { "content": "", "number": 52 }
+      ],
+      "endLine": 47,
+      "name": "converted.py",
+      "path": "converted.py",
+      "startLine": 47
+    },
+    "id": "security-bandit-1.6-c2d1a43a0fc771c74c21e8c6b356f3ff8a2964306877",
+    "referenceUrls": [],
+    "relatedVulnerabilities": ["CWE-703"]
+  }
+}
