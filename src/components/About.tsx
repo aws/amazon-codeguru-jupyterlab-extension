@@ -1,12 +1,10 @@
-import {
-  ColumnLayout,
-  Container,
-  Grid,
-  Header,
-  SpaceBetween
-} from '@cloudscape-design/components';
+import Container from '@cloudscape-design/components/Container';
+import Grid from '@cloudscape-design/components/Grid';
+import Header from '@cloudscape-design/components/Header';
 import Box from '@cloudscape-design/components/box';
+import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Link from '@cloudscape-design/components/link';
+import SpaceBetween from '@cloudscape-design/components/space-between';
 import { ReactWidget } from '@jupyterlab/apputils';
 import { Button } from '@jupyterlab/ui-components';
 import React from 'react';
