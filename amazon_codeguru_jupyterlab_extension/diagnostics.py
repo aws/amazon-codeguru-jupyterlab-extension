@@ -103,7 +103,8 @@ def get_scan_findings(scan_name: str, codeguru_security, send_notification):
         send_notification({"status": CommandStatus.ERROR, "message": str(e)})
         return
     findings = list_findings_response['findings']
-    send_notification({"status": CommandStatus.COMPLETED})
+    send_notification(
+        {"status": CommandStatus.COMPLETED, "message": len(findings)})
     return findings
 
 

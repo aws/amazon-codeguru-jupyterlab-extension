@@ -4,7 +4,6 @@ export type NotificationKind = 'begin' | 'report' | 'end';
 export interface ICodeScanResponse {
   status: Status;
   message?: string;
-  findingsCount?: number;
 }
 
 export interface IProgressMessageResponse {

@@ -5,7 +5,7 @@ import { INotebookModel, NotebookPanel } from '@jupyterlab/notebook';
 import { DisposableDelegate, IDisposable } from '@lumino/disposable';
 import { ISignal, Signal } from '@lumino/signaling';
 import { CODEGURU_RUN_SCAN_LABEL, RUN_CODEGURU_SCAN_ID } from '../constants';
-import { codeGuruIconGray } from '../constants/icons';
+import { codeGuruIcon } from '../constants/icons';
 import { ICodeScanResponse } from '../constants/interface';
 
 export class CreateCodeScanButtonExtension
@@ -31,7 +31,7 @@ export class CreateCodeScanButtonExtension
 
   createNew(panel: NotebookPanel): IDisposable {
     const button = new ToolbarButton({
-      icon: codeGuruIconGray,
+      icon: codeGuruIcon,
       onClick: this.handleClick,
       tooltip: CODEGURU_RUN_SCAN_LABEL
     });

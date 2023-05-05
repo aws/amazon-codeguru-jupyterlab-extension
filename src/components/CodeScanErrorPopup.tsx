@@ -1,6 +1,7 @@
 import { ReactWidget } from '@jupyterlab/apputils';
 
 import React from 'react';
+import { codeGuruSecurityScanAccessPolicy } from '../constants/policy';
 import { Markdown } from './About';
 
 export enum ErrorType {
@@ -17,26 +18,14 @@ const CodeScanErrorComponent = ({ errorType }: ICodeScanError): JSX.Element => {
  ### Missing permissions for CodeGuru extension
 
 
- You currently do not have the necessary permissions needed to run a CodeGuru scan. [Learn more](#)
+ You do not have the necessary permissions to run a CodeGuru scan. [Learn more](#)
 
- Go to your [AWS IAM Console](https://us-east-1.console.aws.amazon.com/iamv2/home#/home) to update
- your execution policy for each user that will use this extension.
+Go to the [AWS IAM Console](https://us-east-1.console.aws.amazon.com/iamv2/home#/home) to update the permissions policy for each user that will use this extension.
 
- Create an inline policy with following permissions:
+Use an AWS managed policy or create a policy with the following permissions:
+
  \`\`\`
- {
-   "Version": "2012-10-17",
-   "Statement": [
-     {
-       "Sid": "AmazonCodeGuruSecurityFullAccess",
-       "Action": [
-         "codeguru-security:*"
-       ],
-       "Effect": "Allow",
-       "Resource": "*"
-     }
-   ]
- }
+${codeGuruSecurityScanAccessPolicy}
  \`\`\`
    `;
 
