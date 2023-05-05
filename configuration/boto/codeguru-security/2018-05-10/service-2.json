@@ -78,6 +78,21 @@
         {"shape":"ThrottlingException"}
       ]
     },
+    "GetAccountConfiguration":{
+      "name":"GetAccountConfiguration",
+      "http":{
+        "method":"GET",
+        "requestUri":"/accountConfiguration",
+        "responseCode":200
+      },
+      "input":{"shape":"GetAccountConfigurationRequest"},
+      "output":{"shape":"GetAccountConfigurationResponse"},
+      "errors":[
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InternalServerException"},
+        {"shape":"ThrottlingException"}
+      ]
+    },
     "GetFinding":{
       "name":"GetFinding",
       "http":{
@@ -105,6 +120,7 @@
       "input":{"shape":"GetFindingsRequest"},
       "output":{"shape":"GetFindingsResponse"},
       "errors":[
+        {"shape":"ConflictException"},
         {"shape":"ValidationException"},
         {"shape":"ResourceNotFoundException"},
         {"shape":"InternalServerException"},
@@ -116,7 +132,7 @@
       "name":"GetScan",
       "http":{
         "method":"GET",
-        "requestUri":"/scans/{scanName}/{runId}",
+        "requestUri":"/scans/{scanName+}",
         "responseCode":200
       },
       "input":{"shape":"GetScanRequest"},
@@ -172,7 +188,6 @@
       "input":{"shape":"UpdateAccountConfigurationRequest"},
       "output":{"shape":"UpdateAccountConfigurationResponse"},
       "errors":[
-        {"shape":"ConflictException"},
         {"shape":"ValidationException"},
         {"shape":"ResourceNotFoundException"},
         {"shape":"InternalServerException"},
@@ -199,6 +214,13 @@
         "senderFault":true
       },
       "exception":true
+    },
+    "AnalysisType":{
+      "type":"string",
+      "enum":[
+        "SECURITY",
+        "ALL"
+      ]
     },
     "BatchGetFindingsError":{
       "type":"structure",
@@ -288,7 +310,8 @@
         },
         "resourceId":{"shape":"ResourceId"},
         "scanName":{"shape":"ScanName"},
-        "scanType":{"shape":"ScanType"}
+        "scanType":{"shape":"ScanType"},
+        "analysisType":{"shape":"AnalysisType"}
       }
     },
     "CreateScanResponse":{
@@ -308,6 +331,7 @@
     },
     "CreateUploadUrlRequest":{
       "type":"structure",
+      "required":["scanName"],
       "members":{
         "fileName":{"shape":"NonEmptyString"},
         "scanName":{"shape":"ScanName"}
@@ -447,6 +471,18 @@
         "resourceFilter":{"shape":"ResourceFilter"}
       }
     },
+    "GetAccountConfigurationRequest":{
+      "type":"structure",
+      "members":{
+      }
+    },
+    "GetAccountConfigurationResponse":{
+      "type":"structure",
+      "required":["kmsKeyArn"],
+      "members":{
+        "kmsKeyArn":{"shape":"KmsKeyArn"}
+      }
+    },
     "GetFindingRequest":{
       "type":"structure",
       "required":[
@@ -490,6 +526,11 @@
           "shape":"GetFindingsRequestMaxResultsInteger",
           "location":"querystring",
           "locationName":"maxResults"
+        },
+        "status":{
+          "shape":"Status",
+          "location":"querystring",
+          "locationName":"status"
         }
       }
     },
@@ -508,19 +549,16 @@
     },
     "GetScanRequest":{
       "type":"structure",
-      "required":[
-        "scanName",
-        "runId"
-      ],
+      "required":["scanName"],
       "members":{
         "scanName":{
-          "shape":"ScanName",
+          "shape":"ScanNameGreedy",
           "location":"uri",
           "locationName":"scanName"
         },
         "runId":{
           "shape":"Uuid",
-          "location":"uri",
+          "location":"querystring",
           "locationName":"runId"
         }
       }
@@ -538,7 +576,8 @@
         "runId":{"shape":"Uuid"},
         "scanState":{"shape":"ScanState"},
         "createdAt":{"shape":"Timestamp"},
-        "updatedAt":{"shape":"Timestamp"}
+        "updatedAt":{"shape":"Timestamp"},
+        "numberOfRevisions":{"shape":"Long"}
       }
     },
     "HeaderKey":{
@@ -568,7 +607,7 @@
       "type":"string",
       "max":2048,
       "min":1,
-      "pattern":"arn:aws:kms:[\\S]+:[\\d]{12}:key\\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}"
+      "pattern":"arn:aws:kms:[\\S]+:[\\d]{12}:key\\/(([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})|(mrk-[0-9a-zA-Z]{32}))"
     },
     "LambdaFilter":{
       "type":"structure",
@@ -631,11 +670,6 @@
     "ListScansRequest":{
       "type":"structure",
       "members":{
-        "state":{
-          "shape":"ScanState",
-          "location":"querystring",
-          "locationName":"scanState"
-        },
         "nextToken":{
           "shape":"NextToken",
           "location":"querystring",
@@ -651,7 +685,7 @@
     "ListScansRequestMaxResultsInteger":{
       "type":"integer",
       "box":true,
-      "max":500,
+      "max":100,
       "min":1
     },
     "ListScansResponse":{
@@ -660,6 +694,10 @@
         "summaries":{"shape":"ScanSummaries"},
         "nextToken":{"shape":"NextToken"}
       }
+    },
+    "Long":{
+      "type":"long",
+      "box":true
     },
     "NextToken":{
       "type":"string",
@@ -773,6 +811,12 @@
       "max":140,
       "min":1,
       "pattern":"[a-zA-Z0-9-_$:.]*"
+    },
+    "ScanNameGreedy":{
+      "type":"string",
+      "max":181,
+      "min":1,
+      "pattern":"[a-zA-Z0-9-_$:.]*(/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}))?"
     },
     "ScanState":{
       "type":"string",

@@ -10,3 +10,8 @@ def test_settings():
     }
     assert result == expected
 
+
+def test_lint(config, workspace, document):
+    result = plugin.pylsp_lint(config, workspace, document, False)
+    expected = None
+    assert result == expected
