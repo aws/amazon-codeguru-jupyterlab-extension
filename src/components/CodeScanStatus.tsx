@@ -1,16 +1,13 @@
-import Box from '@cloudscape-design/components/box';
-import Icon from '@cloudscape-design/components/icon';
-import Spinner from '@cloudscape-design/components/spinner';
 import { ReactWidget } from '@jupyterlab/apputils';
 import { GroupItem, Popup, TextItem, showPopup } from '@jupyterlab/statusbar';
 import { ISignal } from '@lumino/signaling';
 import React, { useState } from 'react';
 import {
-  missingPermissionsOrCredsIconRed,
-  missingPermissionsOrCredsIconWhite
+  checkmarkIconBlue,
+  circlePartialIconBlue,
+  missingPermissionsOrCredsIconRed
 } from '../constants/icons';
 import { ICodeScanResponse, Status } from '../constants/interface';
-import { isLightThemeActive } from '../utils';
 import { CreateCodeScanButtonExtension } from './CodeScanButton';
 import { CodeScanErrorWidget, ErrorType } from './CodeScanErrorPopup';
 
@@ -41,13 +38,15 @@ function CodeScanStatusComponent(props: ICodeScanStatusComponent): JSX.Element {
   });
 
   switch (status) {
-    case 'pending':
+    case 'pending': {
+      const title = 'CodeGuru: Scan in progress';
       return (
-        <Box>
-          <Spinner className="statusbar-spinner" />
-          CodeGuru: Scan in progress
-        </Box>
+        <GroupItem spacing={4} title={title}>
+          <circlePartialIconBlue.react top={'2px'} title={title} />
+          <TextItem source={title} />
+        </GroupItem>
       );
+    }
     case 'error': {
       const errorType = parseError(String(message));
       const title =
@@ -60,25 +59,20 @@ function CodeScanStatusComponent(props: ICodeScanStatusComponent): JSX.Element {
           title={title}
           onClick={() => props.handleClick(errorType)}
         >
-          {isLightThemeActive() ? (
-            <missingPermissionsOrCredsIconRed.react top={'2px'} title={title} />
-          ) : (
-            <missingPermissionsOrCredsIconWhite.react
-              top={'2px'}
-              title={title}
-            />
-          )}
+          <missingPermissionsOrCredsIconRed.react top={'2px'} title={title} />
           <TextItem source={title} />
         </GroupItem>
       );
     }
-    case 'completed':
+    case 'completed': {
+      const title = 'CodeGuru: Scan completed';
       return (
-        <Box>
-          <Icon name="check" className="statusbar-icon" />
-          CodeGuru: Scan completed
-        </Box>
+        <GroupItem spacing={4} title={title}>
+          <checkmarkIconBlue.react top={'2px'} title={title} />
+          <TextItem source={title} />
+        </GroupItem>
       );
+    }
     case 'idle':
     default:
       return <></>;
@@ -125,7 +119,7 @@ export class CodeScanStatus extends ReactWidget {
   }
 }
 
-function parseError(message: string | undefined) {
+export function parseError(message: string | undefined) {
   if (!message) {
     return;
   }

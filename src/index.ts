@@ -8,7 +8,9 @@ import {
 
 import { MainAreaWidget } from '@jupyterlab/apputils';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
+import { IStateDB } from '@jupyterlab/statedb';
 import { IStatusBar } from '@jupyterlab/statusbar';
+import { ReadonlyJSONObject } from '@lumino/coreutils';
 import { AboutCodeGuru } from './components/About';
 import { CreateCodeScanButtonExtension } from './components/CodeScanButton';
 import { CodeScanStatus } from './components/CodeScanStatus';
@@ -18,7 +20,7 @@ import {
   REGISTER_ID,
   RUN_CODEGURU_SCAN_ID
 } from './constants';
-import { codeGuruIconGray } from './constants/icons';
+import { codeGuruIcon } from './constants/icons';
 import { IProgressMessageResponse } from './constants/interface';
 import { DEFAULT_AWS_REGION, Region } from './constants/region';
 
@@ -30,7 +32,7 @@ const COMMANDS = (button: CreateCodeScanButtonExtension): IFeatureCommand[] => [
   {
     id: RUN_CODEGURU_SCAN_ID,
     label: CODEGURU_RUN_SCAN_LABEL,
-    icon: codeGuruIconGray,
+    icon: codeGuruIcon,
     execute: ({ connection, document }) => {
       let token: string;
       if (connection?.isConnected) {
@@ -70,18 +72,14 @@ const COMMANDS = (button: CreateCodeScanButtonExtension): IFeatureCommand[] => [
 const plugin: JupyterFrontEndPlugin<void> = {
   id: `${PLUGIN_ID}:plugin`,
   autoStart: true,
-  requires: [ILSPFeatureManager, IStatusBar, ISettingRegistry],
+  requires: [ILSPFeatureManager, IStatusBar, ISettingRegistry, IStateDB],
   activate: (
     app: JupyterFrontEnd,
     featureManager: ILSPFeatureManager,
     statusBar: IStatusBar,
-    settings: ISettingRegistry
+    settings: ISettingRegistry,
+    state: IStateDB
   ) => {
-    // Todo: remove this before launch
-    console.log(
-      'JupyterLab extension @aws/amazon-codeguru-extension is activated!'
-    );
-
     const button = new CreateCodeScanButtonExtension(app);
     const statusWidget = new CodeScanStatus({
       status: 'idle',
@@ -153,7 +151,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       const widget = new MainAreaWidget({ content: about });
       widget.id = 'about-codeguru';
       widget.title.label = 'Get started with CodeGuru';
-      widget.title.icon = codeGuruIconGray;
+      widget.title.icon = codeGuruIcon;
       widget.title.closable = true;
       return widget;
     };
@@ -180,6 +178,22 @@ const plugin: JupyterFrontEndPlugin<void> = {
     //   command: `${PLUGIN_ID}:about-codeguru`,
     //   selector: '.jp-Cell'
     // });
+
+    app.restored
+      .then(() => state.fetch(`${PLUGIN_ID}:plugin`))
+      .then(value => {
+        let isFirstTime = true;
+        try {
+          isFirstTime = (value as ReadonlyJSONObject)['isFirstTime'] as boolean;
+          // eslint-disable-next-line no-empty
+        } catch {}
+        if (isFirstTime) {
+          app.commands.execute(`${PLUGIN_ID}:about-codeguru`);
+        }
+        return state.save(`${PLUGIN_ID}:plugin`, {
+          isFirstTime: false
+        });
+      });
   }
 };
 

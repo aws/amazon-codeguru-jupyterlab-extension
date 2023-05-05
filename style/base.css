@@ -13,9 +13,13 @@
   margin-right: 5px;
 }
 
+.about-codeguru {
+  overflow-y: auto;
+  height: -webkit-fill-available;
+}
+
 .cg-popover {
   z-index: 10000;
-  padding: 10px 0px;
   background: var(--jp-layout-color0);
   color: var(--jp-ui-font-color1);
   border: var(--jp-border-width) solid var(--jp-border-color1);

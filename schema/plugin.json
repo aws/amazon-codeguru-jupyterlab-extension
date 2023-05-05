@@ -1,15 +1,17 @@
 {
+  "jupyter.lab.setting-icon": "codeGuruIcon",
   "title": "Amazon CodeGuru",
   "description": "Amazon CodeGuru scan settings",
   "properties": {
-    "disableAutoScan": {
+    "enableAutoScan": {
       "type": "boolean",
-      "title": "Disable auto scans",
-      "description": "If enabled, CodeGuru will automatically scan notebook and Python files."
+      "title": "Enable auto scans",
+      "description": "If enabled, CodeGuru will automatically scan notebook and Python files.",
+      "default": true
     },
     "scanFrequency": {
       "type": "integer",
-      "title": "Specify CodeGuru scan frequency",
+      "title": "CodeGuru scan frequency (seconds)",
       "description": "Specify desired scan frequency in seconds. The default frequency is every 120 seconds.",
       "default": 120
     },
@@ -26,7 +28,7 @@
         "eu-west-1",
         "eu-west-2"
       ],
-      "title": "Region",
+      "title": "AWS region",
       "description": "Choose a region to override default region and run CodeGuru scans in the chosen region.",
       "default": "us-east-1"
     }
