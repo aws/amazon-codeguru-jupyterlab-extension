@@ -66,7 +66,8 @@ def create_scan(code_artifact_id: str, scan_name: str, codeguru_security, send_n
     try:
         create_scan_response = codeguru_security.create_scan(resourceId={"codeArtifactId": code_artifact_id},
                                                              scanName=scan_name,
-                                                             scanType="Express")
+                                                             scanType="Express",
+                                                             analysisType="ALL")
     except ClientError as e:
         logger.error(e)
         send_notification({"status": CommandStatus.ERROR, "message": str(e)})

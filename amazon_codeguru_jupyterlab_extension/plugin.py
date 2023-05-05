@@ -14,7 +14,7 @@ logging.basicConfig(
     force=True,
     format="%(asctime)s.%(msecs)d %(name)s %(levelname)s %(message)s",
     datefmt="%H:%M:%S",
-    level=logging.INFO)
+    level=logging.DEBUG)
 
 logger = logging.getLogger(__name__)
 
@@ -42,12 +42,12 @@ def pylsp_execute_command(config: Config, workspace: Workspace, command: str, ar
 
 @hookimpl
 def pylsp_lint(config: Config, workspace: Workspace, document: Document, is_saved: bool):
-    return cfg.diagnostics[document.uri]
+    return cfg.diagnostics.get(document.uri)
 
 
 def execute_run_scan(config: Config, workspace: Workspace, document: Document, overridden_region: str):
     other_diagnostics = get_diagnostics_from_other_sources(config, workspace, document)
     cfg.diagnostics[document.uri] = get_diagnostics(workspace, document, overridden_region)
-    workspace.publish_diagnostics(doc_uri=document.uri, diagnostics=other_diagnostics + cfg.diagnostics[document.uri])
+    workspace.publish_diagnostics(doc_uri=document.uri, diagnostics=other_diagnostics + cfg.diagnostics.get(document.uri))
 
 
