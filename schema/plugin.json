@@ -11,7 +11,7 @@
     },
     "scanFrequency": {
       "type": "integer",
-      "title": "CodeGuru scan frequency (seconds)",
+      "title": "Specify CodeGuru scan frequency (seconds)",
       "description": "Specify desired scan frequency in seconds. The default frequency is every 120 seconds.",
       "default": 120
     },
