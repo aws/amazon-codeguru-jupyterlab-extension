@@ -21,7 +21,7 @@ import {
   RUN_CODEGURU_SCAN_ID
 } from './constants';
 import { codeGuruIcon } from './constants/icons';
-import { IProgressMessageResponse } from './constants/interface';
+import { AutoScan, IProgressMessageResponse } from './constants/interface';
 import { DEFAULT_AWS_REGION, Region } from './constants/region';
 
 class CodeGuruCM extends CodeMirrorIntegration {}
@@ -106,7 +106,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
     // Settings
     let scanFrequency = 120;
-    let disableAutoScan = false;
+    let autoScan: AutoScan = 'Enabled';
     let timeOutToken: NodeJS.Timeout;
     /**
      * Load the settings for this extension
@@ -116,14 +116,14 @@ const plugin: JupyterFrontEndPlugin<void> = {
     function loadSetting(setting: ISettingRegistry.ISettings): void {
       // Read the settings and convert to the correct type
       scanFrequency = setting.get('scanFrequency').composite as number;
-      disableAutoScan = setting.get('disableAutoScan').composite as boolean;
+      autoScan = setting.get('autoScan').composite as AutoScan;
       overriddenRegion = setting.get('region').composite as Region;
 
       // clearing interval before setting new interval or disabling autoscan
       if (timeOutToken) {
         clearInterval(timeOutToken);
       }
-      if (!disableAutoScan && scanFrequency > 0) {
+      if (autoScan === 'Enabled' && scanFrequency > 0) {
         timeOutToken = setInterval(() => {
           app.commands.execute(`lsp:${RUN_CODEGURU_SCAN_ID}-notebook`);
         }, scanFrequency * 1000);

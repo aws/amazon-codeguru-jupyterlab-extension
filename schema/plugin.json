@@ -3,11 +3,11 @@
   "title": "Amazon CodeGuru",
   "description": "Amazon CodeGuru scan settings",
   "properties": {
-    "enableAutoScan": {
-      "type": "boolean",
-      "title": "Enable auto scans",
-      "description": "If enabled, CodeGuru will automatically scan notebook and Python files.",
-      "default": true
+    "autoScan": {
+      "enum": ["Enabled", "Disabled"],
+      "title": "Auto scans",
+      "description": "Enable auto scans to allow CodeGuru to scan files automatically. Disable auto scans to only run scans manually.",
+      "default": "Enabled"
     },
     "scanFrequency": {
       "type": "integer",
