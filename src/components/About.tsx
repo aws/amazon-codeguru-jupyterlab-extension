@@ -1,6 +1,4 @@
-import Container from '@cloudscape-design/components/Container';
-import Grid from '@cloudscape-design/components/Grid';
-import Header from '@cloudscape-design/components/Header';
+import { Container, Grid, Header } from '@cloudscape-design/components';
 import Box from '@cloudscape-design/components/box';
 import ColumnLayout from '@cloudscape-design/components/column-layout';
 import Link from '@cloudscape-design/components/link';
