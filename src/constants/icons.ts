@@ -20,7 +20,7 @@ const circlePartialIconBlue = new LabIcon({
 });
 
 const missingPermissionsOrCredsIconRed = new LabIcon({
-  name: 'cg:missingPermissionsOrCredsIcon:red',
+  name: 'missingPermissionsOrCredsIcon:red',
   svgstr: missingPermissionsOrCredsIconRedSVG
 });
 
