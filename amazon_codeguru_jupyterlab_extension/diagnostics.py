@@ -27,13 +27,15 @@ class CommandStatus(str, Enum):
 
 
 def create_python_from_notebook(nb_filepath: str):
-    py_filepath = os.path.join(TMP_DIR, nb_filepath.replace(".ipynb", ".py"))
+    py_filename = os.path.basename(nb_filepath).replace(".ipynb", ".py")
+    py_filepath = os.path.join(TMP_DIR, py_filename)
     run(nb_filepath, py_filepath)
     return py_filepath
 
 
 def create_zip_from_python(py_filepath: str):
-    zip_filepath = os.path.join(TMP_DIR, py_filepath.replace(".py", ".zip"))
+    zip_filename = os.path.basename(py_filepath).replace(".py", ".zip")
+    zip_filepath = os.path.join(TMP_DIR, zip_filename)
     with zipfile.ZipFile(zip_filepath, "w", zipfile.ZIP_DEFLATED) as zipf:
         zipf.write(py_filepath, arcname=os.path.basename(py_filepath))
     return zip_filepath
@@ -67,7 +69,7 @@ def create_scan(code_artifact_id: str, scan_name: str, codeguru_security, send_n
         create_scan_response = codeguru_security.create_scan(resourceId={"codeArtifactId": code_artifact_id},
                                                              scanName=scan_name,
                                                              scanType="Express",
-                                                             analysisType="ALL")
+                                                             analysisType="All")
     except ClientError as e:
         logger.error(e)
         send_notification({"status": CommandStatus.ERROR, "message": str(e)})
@@ -178,8 +180,9 @@ def get_diagnostics(workspace: Workspace, document: Document, overridden_region:
     with workspace.report_progress("command: runScan") as send_notification:
         send_notification({"status": CommandStatus.PENDING})
         is_nb_file = document.filename.endswith(".ipynb")
+        path_to_nb = document.path.replace(".virtual_documents/", "")
         py_filepath = create_python_from_notebook(
-            document.filename) if is_nb_file else document.filename
+            path_to_nb) if is_nb_file else document.path
         zip_filepath = create_zip_from_python(py_filepath)
         scan_name = "{}-{}".format(os.path.basename(zip_filepath),
                                    datetime.now().isoformat())

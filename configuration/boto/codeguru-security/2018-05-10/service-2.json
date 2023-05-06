@@ -82,7 +82,7 @@
       "name":"GetAccountConfiguration",
       "http":{
         "method":"GET",
-        "requestUri":"/accountConfiguration",
+        "requestUri":"/accountConfiguration/get",
         "responseCode":200
       },
       "input":{"shape":"GetAccountConfigurationRequest"},
@@ -218,8 +218,8 @@
     "AnalysisType":{
       "type":"string",
       "enum":[
-        "SECURITY",
-        "ALL"
+        "Security",
+        "All"
       ]
     },
     "BatchGetFindingsError":{
@@ -400,7 +400,11 @@
       "type":"structure",
       "members":{
         "kmsKeyArn":{"shape":"KmsKeyArn"},
-        "disable":{"shape":"Boolean"}
+        "disable":{
+          "shape":"Boolean",
+          "deprecated":true,
+          "deprecatedMessage":"Disable flag is being deprecated. Pass null as kmsKeyArn will disable cmcmk and reset to aocmk"
+        }
       }
     },
     "ErrorCode":{
@@ -478,9 +482,9 @@
     },
     "GetAccountConfigurationResponse":{
       "type":"structure",
-      "required":["kmsKeyArn"],
+      "required":["encryptionConfig"],
       "members":{
-        "kmsKeyArn":{"shape":"KmsKeyArn"}
+        "encryptionConfig":{"shape":"EncryptionConfig"}
       }
     },
     "GetFindingRequest":{
@@ -569,13 +573,15 @@
         "scanName",
         "runId",
         "scanState",
-        "createdAt"
+        "createdAt",
+        "analysisType"
       ],
       "members":{
         "scanName":{"shape":"ScanName"},
         "runId":{"shape":"Uuid"},
         "scanState":{"shape":"ScanState"},
         "createdAt":{"shape":"Timestamp"},
+        "analysisType":{"shape":"AnalysisType"},
         "updatedAt":{"shape":"Timestamp"},
         "numberOfRevisions":{"shape":"Long"}
       }
