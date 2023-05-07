@@ -27,6 +27,7 @@ def config(workspace):
             },
         },
     }
+    cfg._disabled_plugins = []
     return cfg
 
 

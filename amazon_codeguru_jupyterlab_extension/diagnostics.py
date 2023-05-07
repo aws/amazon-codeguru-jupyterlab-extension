@@ -99,13 +99,13 @@ def poll_scan_status(scan_name: str, run_id: str, codeguru_security, send_notifi
 
 def get_scan_findings(scan_name: str, codeguru_security, send_notification):
     try:
-        list_findings_response = codeguru_security.get_findings(
+        get_findings_response = codeguru_security.get_findings(
             scanName=scan_name)
     except ClientError as e:
         logger.error(e)
         send_notification({"status": CommandStatus.ERROR, "message": str(e)})
         return
-    findings = list_findings_response['findings']
+    findings = get_findings_response['findings']
     send_notification(
         {"status": CommandStatus.COMPLETED, "message": len(findings)})
     return findings

@@ -1,1 +1,1 @@
-diagnostics = {}
+diagnostics_by_document = {}
