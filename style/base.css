@@ -8,11 +8,6 @@
   padding-top: 0 !important;
 }
 
-.statusbar-spinner,
-.statusbar-icon {
-  margin-right: 5px;
-}
-
 .about-codeguru {
   overflow-y: auto;
   height: -webkit-fill-available;
