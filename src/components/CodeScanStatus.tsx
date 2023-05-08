@@ -1,12 +1,8 @@
+import StatusIndicator from '@cloudscape-design/components/status-indicator';
 import { ReactWidget } from '@jupyterlab/apputils';
-import { GroupItem, Popup, TextItem, showPopup } from '@jupyterlab/statusbar';
+import { Popup, TextItem, showPopup } from '@jupyterlab/statusbar';
 import { ISignal } from '@lumino/signaling';
 import React, { useState } from 'react';
-import {
-  checkmarkIconBlue,
-  circlePartialIconBlue,
-  missingPermissionsOrCredsIconRed
-} from '../constants/icons';
 import { ICodeScanResponse, Status } from '../constants/interface';
 import { CreateCodeScanButtonExtension } from './CodeScanButton';
 import { CodeScanErrorWidget, ErrorType } from './CodeScanErrorPopup';
@@ -41,10 +37,9 @@ function CodeScanStatusComponent(props: ICodeScanStatusComponent): JSX.Element {
     case 'pending': {
       const title = 'CodeGuru: Scan in progress';
       return (
-        <GroupItem spacing={4} title={title}>
-          <circlePartialIconBlue.react top={'2px'} title={title} />
+        <StatusIndicator type="in-progress" colorOverride="blue">
           <TextItem source={title} />
-        </GroupItem>
+        </StatusIndicator>
       );
     }
     case 'error': {
@@ -56,23 +51,17 @@ function CodeScanStatusComponent(props: ICodeScanStatusComponent): JSX.Element {
           ? 'CodeGuru: Missing credentials'
           : 'CodeGuru: Scan failed';
       return (
-        <GroupItem
-          spacing={4}
-          title={title}
-          onClick={() => props.handleClick(errorType)}
-        >
-          <missingPermissionsOrCredsIconRed.react top={'2px'} title={title} />
+        <StatusIndicator type="warning">
           <TextItem source={title} />
-        </GroupItem>
+        </StatusIndicator>
       );
     }
     case 'completed': {
       const title = 'CodeGuru: Scan completed';
       return (
-        <GroupItem spacing={4} title={title}>
-          <checkmarkIconBlue.react top={'2px'} title={title} />
+        <StatusIndicator type="success" colorOverride="blue">
           <TextItem source={title} />
-        </GroupItem>
+        </StatusIndicator>
       );
     }
     case 'idle':
