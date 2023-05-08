@@ -114,6 +114,17 @@
         "bundled": false,
         "singleton": true
       }
+    },
+    "discovery": {
+      "server": {
+        "base": {
+          "name": "amazon_codeguru_jupyterlab_extension"
+        },
+        "managers": [
+          "pip",
+          "conda"
+        ]
+      }
     }
   }
 }
