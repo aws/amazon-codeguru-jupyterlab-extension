@@ -118,11 +118,10 @@
     "discovery": {
       "server": {
         "base": {
-          "name": "amazon_codeguru_jupyterlab_extension"
+          "name": "amazon-codeguru-jupyterlab-extension"
         },
         "managers": [
-          "pip",
-          "conda"
+          "pip"
         ]
       }
     }
