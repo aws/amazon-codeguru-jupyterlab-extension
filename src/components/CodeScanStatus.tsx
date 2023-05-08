@@ -52,6 +52,8 @@ function CodeScanStatusComponent(props: ICodeScanStatusComponent): JSX.Element {
       const title =
         errorType === ErrorType.INSUFFICIENT_ACCESS_PERMISSIONS
           ? 'CodeGuru: Missing permissions'
+          : errorType === ErrorType.MISSING_AWS_CREDENTIALS
+          ? 'CodeGuru: Missing credentials'
           : 'CodeGuru: Scan failed';
       return (
         <GroupItem
@@ -132,8 +134,9 @@ export function parseError(message: string | undefined) {
   }
 
   if (
-    message.includes('UnrecognizedClientException') &&
-    message.includes('The security token included in the request is invalid')
+    (message.includes('UnrecognizedClientException') ||
+      message.includes('ExpiredTokenException')) &&
+    message.includes('The security token included in the request is ')
   ) {
     return ErrorType.MISSING_AWS_CREDENTIALS;
   }
