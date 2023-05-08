@@ -41,13 +41,10 @@ def pylsp_execute_command(config: Config, workspace: Workspace, command: str, ar
 
 @hookimpl
 def pylsp_lint(config: Config, workspace: Workspace, document: Document, is_saved: bool):
-    return cfg.diagnostics.get(document.uri)
+    return cfg.diagnostics_by_document.get(document.uri)
 
 
 def execute_run_scan(config: Config, workspace: Workspace, document: Document, overridden_region: str):
-    other_diagnostics = get_diagnostics_from_other_sources(
-        config, workspace, document)
-    cfg.diagnostics[document.uri] = get_diagnostics(
-        workspace, document, overridden_region)
-    workspace.publish_diagnostics(
-        doc_uri=document.uri, diagnostics=other_diagnostics + cfg.diagnostics.get(document.uri))
+    other_diagnostics = get_diagnostics_from_other_sources(config, workspace, document)
+    cfg.diagnostics_by_document[document.uri] = get_diagnostics(workspace, document, overridden_region)
+    workspace.publish_diagnostics(doc_uri=document.uri, diagnostics=other_diagnostics + cfg.diagnostics_by_document.get(document.uri))
