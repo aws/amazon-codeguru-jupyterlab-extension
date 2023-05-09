@@ -72,11 +72,11 @@
     "@jupyterlab/statedb": "^3.6.3",
     "@jupyterlab/statusbar": "^3.6.3",
     "@jupyterlab/ui-components": "^3.6.3",
-    "@lumino/disposable": "^2.1.0",
-    "@lumino/signaling": "^2.1.0",
+    "@lumino/disposable": "^1.10.4",
+    "@lumino/signaling": "^1.10.4",
     "codemirror": "~5.61.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-markdown": "^8.0.6"
   },
   "devDependencies": {
