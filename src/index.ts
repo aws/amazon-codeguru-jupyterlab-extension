@@ -105,8 +105,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
     });
 
     // Settings
-    let scanFrequency = 120;
-    let autoScan: AutoScan = 'Enabled';
+    let scanFrequency = 240;
+    let autoScan: AutoScan = 'Disabled';
     let timeOutToken: NodeJS.Timeout;
     /**
      * Load the settings for this extension

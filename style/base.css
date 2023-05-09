@@ -12,6 +12,9 @@
   overflow-y: auto;
   height: -webkit-fill-available;
 }
+.about-codeguru .cg-icon-inline {
+  display: inline;
+}
 
 .cg-popover {
   z-index: 10000;

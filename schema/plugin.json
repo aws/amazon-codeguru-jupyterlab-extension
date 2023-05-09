@@ -7,13 +7,13 @@
       "enum": ["Enabled", "Disabled"],
       "title": "Auto scans",
       "description": "Enable auto scans to allow CodeGuru to scan files automatically. Disable auto scans to only run scans manually.",
-      "default": "Enabled"
+      "default": "Disabled"
     },
     "scanFrequency": {
       "type": "integer",
-      "title": "Specify CodeGuru scan frequency (seconds)",
-      "description": "Specify desired scan frequency in seconds. The default frequency is every 120 seconds.",
-      "default": 120
+      "title": "CodeGuru scan frequency (seconds)",
+      "description": "Specify desired scan frequency in seconds. The default frequency is every 240 seconds.",
+      "default": 240
     },
     "region": {
       "enum": [
@@ -29,7 +29,7 @@
         "eu-west-2"
       ],
       "title": "AWS region",
-      "description": "Choose a region to override default region and run CodeGuru scans in the chosen region.",
+      "description": "Choose the AWS Region where CodeGuru scans run.",
       "default": "us-east-1"
     }
   },
