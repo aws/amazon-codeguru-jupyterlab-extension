@@ -1,7 +1,7 @@
 {
   "name": "@aws/amazon-codeguru-extension",
   "version": "1.0.0",
-  "description": "Security, code quality & ML scans",
+  "description": "Security, code quality, and ML recommendations",
   "keywords": [
     "amazon",
     "aws",
