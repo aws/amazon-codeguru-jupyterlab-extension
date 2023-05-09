@@ -9,6 +9,8 @@
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension",
+    "machine-learning",
+    "sagemaker",
     "security"
   ],
   "homepage": "https://github.com/aws/amazon-codeguru-jupyterlab-extension",
