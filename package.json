@@ -1,11 +1,15 @@
 {
   "name": "@aws/amazon-codeguru-extension",
   "version": "1.0.0",
-  "description": "Security & code quality scans",
+  "description": "Security, code quality & ML scans",
   "keywords": [
+    "amazon",
+    "aws",
+    "codeguru",
     "jupyter",
     "jupyterlab",
-    "jupyterlab-extension"
+    "jupyterlab-extension",
+    "security"
   ],
   "homepage": "https://github.com/aws/amazon-codeguru-jupyterlab-extension",
   "bugs": {
