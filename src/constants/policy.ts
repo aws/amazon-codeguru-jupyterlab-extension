@@ -11,7 +11,7 @@ export const codeGuruSecurityScanAccessPolicy = `
         "codeguru-security:GetScan",
         "codeguru-security:GetFindings"
       ],
-      "Resource": "*"
+      "Resource": "arn:aws:codeguru-security:*:*:scans/*"
     }
   ]
 }
