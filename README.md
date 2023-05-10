@@ -1,7 +1,7 @@
 ## Amazon CodeGuru JupyterLab Extension
 
 Amazon CodeGuru extension for [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/) and [SageMaker Studio](https://aws.amazon.com/sagemaker/studio/).
-This extension runs scans on your notebook files and provides security recommendations and quality improvements to machine learning methods.
+This extension runs scans on your notebook files and provides security recommendations and quality improvements to your code.
 
 ## Requirements
 
@@ -10,13 +10,13 @@ This extension runs scans on your notebook files and provides security recommend
 ## Install
 
 ```sh
-$ pip install amazon_codeguru_jupyterlab_extension
+pip install amazon_codeguru_jupyterlab_extension
 ```
 
 ## Uninstall
 
 ```sh
-$ pip uninstall amazon_codeguru_jupyterlab_extension
+pip uninstall amazon_codeguru_jupyterlab_extension
 ```
 
 ## Development
@@ -32,36 +32,36 @@ Ensure the following dependencies are available in your environment.
 Alternatively, you can create a conda virtual environment with the following commands:
 
 ```sh
-$ conda env update --file binder/environment.yml
-$ conda activate amazon-codeguru-extension-demo
+conda env update --file binder/environment.yml
+conda activate amazon-codeguru-extension-demo
 ```
 
 ### Manual Setup
 
-1. Install the python package in development mode
+1. Install the Python package in development mode.
 
 ```sh
-$ pip install -e .
+pip install -e .
 ```
 
-2. Link the extension with JupyterLab
+2. Link the extension with JupyterLab.
 
 ```sh
-$ jupyter labextension develop . --overwrite
+jupyter labextension develop . --overwrite
 ```
 
-3. Build the Typescript source
+3. Build the Typescript source.
 
 ```sh
-$ jlpm build
+jlpm build
 # or
-$ jlpm watch # automatically rebuild changes
+jlpm watch # automatically rebuild changes
 ```
 
-4. Start JupyterLab server
+4. Start the JupyterLab server
 
 ```sh
-$ jupyter lab
+jupyter lab
 ```
 
 ### Quick Setup
@@ -69,7 +69,7 @@ $ jupyter lab
 Run the following command to quickly build and install the extension.
 
 ```sh
-$ python3 binder/postBuild
+python3 binder/postBuild
 ```
 
 ## Release
@@ -78,25 +78,25 @@ This extension can be distributed as a Python package.
 First, install build dependencies:
 
 ```sh
-$ pip install build twine hatch
+pip install build twine hatch
 ```
 
 Bump the version using `hatch`. By default this will create a tag.
 
 ```sh
-$ hatch version <new-version>
+hatch version <new-version>
 ```
 
-To generate a new Python source package (`.tar.gz`) and the binary package (`.whl`) in the `dist/` directory, do:
+To generate a new Python source package (`.tar.gz`) and the binary package (`.whl`) in the `dist/` directory, run the following command:
 
 ```sh
-$ python -m build
+python -m build
 ```
 
-Then to upload the package to PyPI, do:
+Then to upload the package to PyPI, run the following command:
 
 ```sh
-$ twine upload dist/*
+twine upload dist/*
 ```
 
 ## Security
