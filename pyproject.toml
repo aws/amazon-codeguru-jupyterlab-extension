@@ -22,7 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
 ]
 dependencies = [
-    "jupyterlab_lsp",
+    "jupyterlab_lsp >= 4.0.0",
     "python-lsp-server <= 1.7.1",
     "boto3"
 ]
