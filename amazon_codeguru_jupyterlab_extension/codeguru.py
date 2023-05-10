@@ -22,7 +22,7 @@ session._loader.search_paths.extend([os.path.join(sys.prefix, "boto")])
 def get_codeguru_security_client(overridden_region):
     aws_region = get_codeguru_supported_region(overridden_region)
     return session.client('codeguru-security',
-                          endpoint_url="https://{}.prod.fe.codeguru-reviewer2.guru.aws.a2z.com".format(aws_region),
+                          endpoint_url="https://codeguru-security.{}.amazonaws.com".format(aws_region),
                           region_name=aws_region)
 
 
