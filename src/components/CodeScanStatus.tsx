@@ -51,9 +51,11 @@ function CodeScanStatusComponent(props: ICodeScanStatusComponent): JSX.Element {
           ? 'CodeGuru: Missing credentials'
           : 'CodeGuru: Scan failed';
       return (
-        <StatusIndicator type="warning">
-          <TextItem source={title} />
-        </StatusIndicator>
+        <div onClick={() => props.handleClick(errorType)}>
+          <StatusIndicator type="warning">
+            <TextItem source={title} />
+          </StatusIndicator>
+        </div>
       );
     }
     case 'completed': {
