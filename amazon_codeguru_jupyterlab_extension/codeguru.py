@@ -1,6 +1,5 @@
 import os
 import boto3
-import sys
 
 CODEGURU_REGIONS = [
     'eu-north-1',
@@ -15,15 +14,12 @@ CODEGURU_REGIONS = [
     'eu-west-2'
 ]
 DEFAULT_AWS_REGION = 'us-east-1'
-session = boto3.Session()
-session._loader.search_paths.extend([os.path.join(sys.prefix, "boto")])
 
 
 def get_codeguru_security_client(overridden_region):
     aws_region = get_codeguru_supported_region(overridden_region)
-    return session.client('codeguru-security',
-                          endpoint_url="https://codeguru-security.{}.amazonaws.com".format(aws_region),
-                          region_name=aws_region)
+    return boto3.client('codeguru-security',
+                        region_name=aws_region)
 
 
 def get_codeguru_supported_region(overridden_region):
