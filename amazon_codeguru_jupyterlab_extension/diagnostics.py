@@ -44,7 +44,7 @@ def create_zip_from_python(py_filepath: str):
 def upload_file(zip_filepath: str, scan_name: str, codeguru_security, send_notification):
     try:
         create_upload_url_response = codeguru_security.create_upload_url(
-            fileName=os.path.basename(zip_filepath), scanName=scan_name)
+            scanName=scan_name)
     except ClientError as e:
         logger.error(e)
         send_notification({"status": CommandStatus.ERROR, "message": str(e)})
@@ -93,7 +93,8 @@ def poll_scan_status(scan_name: str, run_id: str, codeguru_security, send_notifi
             break
         elif get_scan_response['scanState'] == 'Failed':
             logger.error("Express scan failed")
-            send_notification({"status": CommandStatus.ERROR, "message": "Scan failed"})
+            send_notification(
+                {"status": CommandStatus.ERROR, "message": "Scan failed"})
             return
 
 

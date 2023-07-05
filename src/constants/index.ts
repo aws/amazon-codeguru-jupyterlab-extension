@@ -8,3 +8,8 @@ export enum REGISTER_ID {
 export const RUN_CODEGURU_SCAN_ID = 'run-codeguru-scan';
 
 export const CODEGURU_RUN_SCAN_LABEL = 'Run CodeGuru scan';
+
+export enum PLATFORM_ACRONYM {
+  SAGEMAKER = 'sm',
+  LOCALHOST = 'jl'
+}

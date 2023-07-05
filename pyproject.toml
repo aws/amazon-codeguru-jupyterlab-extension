@@ -24,7 +24,7 @@ classifiers = [
 dependencies = [
     "jupyterlab_lsp >= 4.0.0",
     "python-lsp-server <= 1.7.1",
-    "boto3"
+    "boto3 >= 1.26.162"
 ]
 dynamic = ["version", "description", "authors", "urls", "keywords"]
 
@@ -48,7 +48,6 @@ exclude = [".github", "binder"]
 [tool.hatch.build.targets.wheel.shared-data]
 "amazon_codeguru_jupyterlab_extension/labextension" = "share/jupyter/labextensions/@aws/amazon-codeguru-extension"
 "install.json" = "share/jupyter/labextensions/@aws/amazon-codeguru-extension/install.json"
-"configuration/boto" = "boto"
 
 [tool.hatch.build.hooks.version]
 path = "amazon_codeguru_jupyterlab_extension/_version.py"

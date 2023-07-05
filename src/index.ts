@@ -23,6 +23,7 @@ import {
 import { codeGuruIcon } from './constants/icons';
 import { AutoScan, IProgressMessageResponse } from './constants/interface';
 import { DEFAULT_AWS_REGION, Region } from './constants/region';
+import { getPlatformAcronym } from './utils';
 
 class CodeGuruCM extends CodeMirrorIntegration {}
 
@@ -34,6 +35,7 @@ const COMMANDS = (button: CreateCodeScanButtonExtension): IFeatureCommand[] => [
     label: CODEGURU_RUN_SCAN_LABEL,
     icon: codeGuruIcon,
     execute: ({ connection, document }) => {
+      const platform = getPlatformAcronym();
       let token: string;
       if (connection?.isConnected) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -41,7 +43,7 @@ const COMMANDS = (button: CreateCodeScanButtonExtension): IFeatureCommand[] => [
         const wsConnection = connection.connection;
         void wsConnection.sendRequest('workspace/executeCommand', {
           command: 'cgs.runScan',
-          arguments: [document.document_info.uri, overriddenRegion]
+          arguments: [document.document_info.uri, overriddenRegion, platform]
         });
 
         wsConnection.onNotification(
