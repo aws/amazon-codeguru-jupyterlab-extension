@@ -35,8 +35,10 @@ def pylsp_execute_command(config: Config, workspace: Workspace, command: str, ar
     if command == "cgs.runScan":
         doc_uri = arguments[0]
         overridden_region = arguments[1]
+        platform = arguments[2]
         document = workspace.get_document(doc_uri)
-        execute_run_scan(config, workspace, document, overridden_region)
+        execute_run_scan(config, workspace, document,
+                         overridden_region, platform)
 
 
 @hookimpl
@@ -44,7 +46,10 @@ def pylsp_lint(config: Config, workspace: Workspace, document: Document, is_save
     return cfg.diagnostics_by_document.get(document.uri)
 
 
-def execute_run_scan(config: Config, workspace: Workspace, document: Document, overridden_region: str):
-    other_diagnostics = get_diagnostics_from_other_sources(config, workspace, document)
-    cfg.diagnostics_by_document[document.uri] = get_diagnostics(workspace, document, overridden_region)
-    workspace.publish_diagnostics(doc_uri=document.uri, diagnostics=other_diagnostics + cfg.diagnostics_by_document.get(document.uri))
+def execute_run_scan(config: Config, workspace: Workspace, document: Document, overridden_region: str, platform: str):
+    other_diagnostics = get_diagnostics_from_other_sources(
+        config, workspace, document)
+    cfg.diagnostics_by_document[document.uri] = get_diagnostics(
+        workspace, document, overridden_region, platform)
+    workspace.publish_diagnostics(
+        doc_uri=document.uri, diagnostics=other_diagnostics + cfg.diagnostics_by_document.get(document.uri))
