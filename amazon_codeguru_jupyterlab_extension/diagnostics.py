@@ -175,7 +175,7 @@ def get_message_for_finding(finding, py_filepath, is_nb_file):
     }
 
 
-def get_diagnostics(workspace: Workspace, document: Document, overridden_region: str):
+def get_diagnostics(workspace: Workspace, document: Document, overridden_region: str, platform: str):
     codeguru_security = get_codeguru_security_client(overridden_region)
 
     with workspace.report_progress("command: runScan") as send_notification:
@@ -185,8 +185,10 @@ def get_diagnostics(workspace: Workspace, document: Document, overridden_region:
         py_filepath = create_python_from_notebook(
             path_to_nb) if is_nb_file else document.path
         zip_filepath = create_zip_from_python(py_filepath)
-        scan_name = "{}-{}".format(os.path.basename(zip_filepath),
-                                   datetime.now().isoformat())
+        scan_name = "{}-{}-{}".format(platform, os.path.basename(zip_filepath),
+                                      datetime.now().isoformat())
+        # truncating scan name to avoid scan failure due to scan name character limit
+        scan_name = scan_name[:140]
         code_artifact_id = upload_file(
             zip_filepath, scan_name, codeguru_security, send_notification)
         run_id = create_scan(code_artifact_id, scan_name,
